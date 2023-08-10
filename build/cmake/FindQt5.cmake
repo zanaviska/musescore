@@ -48,6 +48,12 @@ if (OS_IS_LIN)
       )
 endif()
 
+set(Qt_dir /usr/lib/qt5/lib/cmake)
+foreach(_component ${_components})
+  set(Qt5${_component}_DIR ${Qt_dir}/Qt5${_component})
+  # message("Qt5${_component}_DIR ${Qt_dir}/Qt5${_component}")
+endforeach()
+
 find_package(Qt5Core ${QT_MIN_VERSION} REQUIRED)
 
 foreach(_component ${_components})

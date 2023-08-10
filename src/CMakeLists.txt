@@ -19,6 +19,11 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 # App (main)
+set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE "${CMAKE_COMMAND} -E time")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -ftime-trace")
+set(Qt5_DIR /usr/lib/qt5/lib/cmake)
+set(Qt5Test_DIR /usr/lib/qt5/lib/cmake/Qt5Test/)
+
 add_subdirectory(app)
 
 # Framework

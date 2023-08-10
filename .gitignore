@@ -68,3 +68,6 @@ VERSION
 *.orig
 
 temp_*
+
+# custom file list
+compile_commands.json

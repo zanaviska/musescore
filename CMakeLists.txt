@@ -19,7 +19,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>. 
 
 cmake_minimum_required(VERSION 3.16)
-
+set(CMAKE_EXPORT_COMPILE_COMMANDS 1)
 cmake_policy(SET CMP0091 OLD) # not set MSVC default args
 
 project(mscore LANGUAGES C CXX)

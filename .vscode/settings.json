@@ -1,53 +1,38 @@
+// NOTE: I prefer to put this in each project, at "<PROJECT>/.vscode/settings.json"
+// This makes it easier to collaborate with others, as they can clone the repo
+// and have a mostly-working cross-platform VS Code config
 {
-    "files.associations": {
-        "array": "cpp",
-        "atomic": "cpp",
-        "*.tcc": "cpp",
-        "cctype": "cpp",
-        "chrono": "cpp",
-        "clocale": "cpp",
-        "cmath": "cpp",
-        "cstdarg": "cpp",
-        "cstddef": "cpp",
-        "cstdint": "cpp",
-        "cstdio": "cpp",
-        "cstdlib": "cpp",
-        "ctime": "cpp",
-        "cwchar": "cpp",
-        "cwctype": "cpp",
-        "deque": "cpp",
-        "list": "cpp",
-        "unordered_map": "cpp",
-        "vector": "cpp",
-        "exception": "cpp",
-        "fstream": "cpp",
-        "functional": "cpp",
-        "initializer_list": "cpp",
-        "iosfwd": "cpp",
-        "iostream": "cpp",
-        "istream": "cpp",
-        "limits": "cpp",
-        "new": "cpp",
-        "numeric": "cpp",
-        "optional": "cpp",
-        "ostream": "cpp",
-        "ratio": "cpp",
-        "sstream": "cpp",
-        "stdexcept": "cpp",
-        "streambuf": "cpp",
-        "string_view": "cpp",
-        "system_error": "cpp",
-        "cinttypes": "cpp",
-        "type_traits": "cpp",
-        "tuple": "cpp",
-        "typeinfo": "cpp",
-        "utility": "cpp",
-        "memory": "cpp",
-        "qgroupbox": "cpp",
-        "qbytearray": "cpp",
-        "qcombobox": "cpp"
-    },
-    "cmake.buildDirectory": "${workspaceRoot}/build.debug",
-    "cmake.configureOnOpen": true,
-    "uncrustify.configPath.linux": "tools/codestyle/uncrustify_musescore.cfg"
+    // "editor.formatOnSave": true,
+    // Disable formatting and intellisense engine in Microsoft C/C++ extension (provides debugging)
+    // This way you can have the other features of the extension but use clangd for LSP
+    "C_Cpp.formatting": "Disabled",
+    "C_Cpp.intelliSenseEngine": "Default",
+    // Configure .clangd arguments
+    "clangd.checkUpdates": true,
+    "clangd.onConfigChanged": "restart",
+    "clangd.arguments": [
+        // --background-index              - Index project code in the background and persist index on disk.
+        "-background-index",
+        // --header-insertion=<value>      - Add #include directives when accepting code completions
+        //  =iwyu                          -   Include what you use. Insert the owning header for top-level symbols, unless the header is already directly included or the symbol is forward-declared
+        //  =never                         -   Never insert #include directives as part of code completion
+        "-header-insertion=iwyu",
+        // --header-insertion-decorators   - Prepend a circular dot or space before the completion label, depending on whether an include line will be inserted or not
+        "-header-insertion-decorators",
+        // --inlay-hints                   - Enable preview of InlayHints feature
+        "--inlay-hints",
+        // --function-arg-placeholders     - When disabled, completions contain only parentheses for function calls. When enabled, completions also contain placeholders for method parameters
+        "--function-arg-placeholders",
+    ],
+    // Prefer "Ninja"
+    "cmake.generator": "Ninja",
+    "cmake.sourceDirectory": "${workspaceFolder}",
+    // Set build directory to format: "./build/clang13-msvc-x86_64/debug
+    "cmake.buildDirectory": "${workspaceFolder}/../build/${buildKit}/${buildType}",
+    // Copy compile_commands.json from the build folder to root folder, so that clangd can use it
+    // NOTE: Alternatively, you can pass --compile-commands-dir=<string> in the "clangd.arguments" array above
+    "cmake.copyCompileCommands": "${workspaceFolder}/compile_commands.json",
+    "cmake.configureSettings": {
+        "CMAKE_EXPORT_COMPILE_COMMANDS": 1,
+    }
 }
